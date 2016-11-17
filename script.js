@@ -84,10 +84,10 @@ let startDotScreenClicked = (event) => {
  */
 let addCircle = (xCord, yCord) => {
     if (!xCord) {
-        xCord = Math.floor((Math.random() * canvasWidth) + 1);
+        xCord = Math.floor((Math.random() * (canvasWidth-50)) + 51);
     }
     if (!yCord) {
-        yCord = Math.floor((Math.random() * canvasHeight) + 1);
+        yCord = Math.floor((Math.random() * (canvasHeight-50)) + 51);
     }
     var circle = new createjs.Shape();
     circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
@@ -98,7 +98,7 @@ let addCircle = (xCord, yCord) => {
     stage.update();
     return circle;
 }
-/**
+/**can
  *  Event listener when a circle is clicked
  *
  * @param event
@@ -109,8 +109,8 @@ let circleClicked = (event) => {
     }
     console.log((createjs.Ticker.getTime(true) - startTime) / 1000);
     console.log(`Circle has been clicked`);
-    event.target.x = Math.floor((Math.random() * canvasWidth) + 1);
-    event.target.y = Math.floor((Math.random() * canvasHeight) + 1);
+    event.target.x = Math.random() * (canvasWidth-50-50) + 50;
+    event.target.y = Math.random() * (canvasHeight-50-50) + 50;
     startTime = createjs.Ticker.getTime(true);
     stage.update();
 };
