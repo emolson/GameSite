@@ -1,0 +1,30 @@
+var express = require('express');
+var bodyParser = require('body-parser');
+var dotGame = require('../models/dotGame');
+
+var router = express.Router();
+var jsonParser = bodyParser.json();
+
+router.post('/saveDotGame', jsonParser, function(req,res) {
+    if(!req.body) return res.sendStatus(400);
+    console.log(req.body);
+    var gameExample = new dotGame({
+        accuracy: req.body.accuracy,
+        time: req.body.time
+    });
+    //dotGame.find().remove().exec();
+    gameExample.save(function(err, gameExample) {
+        if(err) {
+            return console.log("Error: " + err);
+        }
+    });
+    dotGame.find(function(err, games) {
+        if(err) {
+            return console.log(err);
+        }
+        console.log(games);
+    });
+    res.send('saving dot game');
+});
+
+module.exports = router;

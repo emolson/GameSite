@@ -151,17 +151,24 @@ let circleClicked = (event) => {
 let resetGame = () => {
     //Erase stage event
     stage.off("stagemousedown", onStageClickCallback);
+    saveScore();
     dotRound = 1;
     dotsClicked = 0;
-    saveScore();
     addStartButton();
 };
 
 let saveScore = () => {
+    let time = (createjs.Ticker.getTime(true) - startTime) / 1000;
+    let accuracy = numberOfRounds/dotsClicked;
+    let stats = {
+        time: time,
+        accuracy: accuracy
+    }
   $.ajax({
       type: "POST",
-      url: '/api/saveDotGame',
-      data: 'json',
+      url: '/dotGame/saveDotGame',
+      data: JSON.stringify(stats),
+      contentType: "application/json; charset=utf-8",
       success: function(data) {
           console.log('save success');
           console.log(data);
